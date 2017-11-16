@@ -7,7 +7,7 @@ $headers = [
     'Accept' => 'application/json'
 ];
 
-$fileName = 'games.csv';
+$fileName = 'games.json';
 
 $client = new GuzzleHttp\Client([
     'headers' => $headers,
@@ -26,7 +26,9 @@ $dataArray = json_decode($getData, true);
 
 $fp = fopen($fileName, "w");
 foreach ($dataArray as $fields) {
-    fputcsv($fp, array_flatten($fields));
+        //fputcsv($fp, array_flatten($fields));
+        fputcsv($fp, array_keys($fields), ',');
+        fputcsv($fp, array_values($fields), ',');
 }
 fclose($fp);
 
